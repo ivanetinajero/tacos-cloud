@@ -1,6 +1,5 @@
 package net.itinajero.controller;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Controller;
@@ -16,30 +15,28 @@ import net.itinajero.model.Ingrediente;
 import net.itinajero.model.Ingrediente.Tipo;
 import net.itinajero.model.OrdenTacos;
 import net.itinajero.model.Taco;
+import net.itinajero.repository.IIngredientesRepository;
 
 @Controller
 @RequestMapping("/design")
 @SessionAttributes("ordenTacos")
 public class DesignTacoController {
+	
+	private final IIngredientesRepository ingredientesRepo;
+	
+	public DesignTacoController(IIngredientesRepository ingredientesRepo) {
+		this.ingredientesRepo = ingredientesRepo;
+	}
 
 	@ModelAttribute
 	public void addIngredientsToModel(Model model) {
-		List<Ingrediente> ingredients = Arrays.asList(
-				new Ingrediente("FLTO", "Tortilla de harina", Tipo.ENVOLTURA),
-				new Ingrediente("COTO", "Tortilla de maiz", Tipo.ENVOLTURA), 
-				new Ingrediente("GRBF", "Adobada", Tipo.PROTEINA),
-				new Ingrediente("CARN", "Carnitas", Tipo.PROTEINA),
-				new Ingrediente("TMTO", "Jitomate", Tipo.VEGETAL), 
-				new Ingrediente("LETC", "Lechuga", Tipo.VEGETAL),
-				new Ingrediente("CHED", "Cheddar", Tipo.QUESO), 
-				new Ingrediente("JACK", "Amarillo", Tipo.QUESO),
-				new Ingrediente("SLSA", "chilena", Tipo.SALSA), 
-				new Ingrediente("SRCR", "Picante (chile arbol)", Tipo.SALSA));
 		
+		List<Ingrediente> ingredients = ingredientesRepo.findAll();		
 		Tipo[] tipos = Ingrediente.Tipo.values();
 		for (Tipo tipo : tipos) {
 			model.addAttribute(tipo.toString().toLowerCase(), filterByType(ingredients, tipo));
 		}
+		
 	}
 
 	@ModelAttribute(name = "ordenTacos")

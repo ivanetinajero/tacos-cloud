@@ -1,14 +1,28 @@
 package net.itinajero.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.validator.constraints.CreditCardNumber;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
+@Entity
+@Table(name="OrdenesTacos")
 public class OrdenTacos {
-
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private Date fechaRegistro = new Date();
 	@NotBlank(message="El nombre de entrega es requerido")
 	private String nombreEntrega;
 	@NotBlank(message="La calle de entrega es requerido")
@@ -25,6 +39,7 @@ public class OrdenTacos {
 	private String expiracionTarjeta;
 	@Digits(integer=3, fraction=0, message="El CVV no es válido")
 	private String cvvTarjeta;
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Taco> tacos = new ArrayList<>();
 
 	public String getNombreEntrega() {
@@ -98,17 +113,34 @@ public class OrdenTacos {
 	public void setTacos(List<Taco> tacos) {
 		this.tacos = tacos;
 	}
+	
+	public Long getId() {
+		return id;
+	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Date getFechaRegistro() {
+		return fechaRegistro;
+	}
+
+	public void setFechaRegistro(Date fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
+	}
+	
 	public void agregarTaco(Taco taco) {
 		this.tacos.add(taco);
 	}
-
+	
 	@Override
 	public String toString() {
-		return "OrdenTacos [nombreEntrega=" + nombreEntrega + ", calleEntrega=" + calleEntrega + ", ciudadEntrega="
-				+ ciudadEntrega + ", estadoEntrega=" + estadoEntrega + ", cpEntrega=" + cpEntrega + ", numeroTarjeta="
-				+ numeroTarjeta + ", expiracionTarjeta=" + expiracionTarjeta + ", cvvTarjeta=" + cvvTarjeta + ", tacos="
-				+ tacos + "]";
+		return "OrdenTacos [id=" + id + ", fechaRegistro=" + fechaRegistro + ", nombreEntrega=" + nombreEntrega
+				+ ", calleEntrega=" + calleEntrega + ", ciudadEntrega=" + ciudadEntrega + ", estadoEntrega="
+				+ estadoEntrega + ", cpEntrega=" + cpEntrega + ", numeroTarjeta=" + numeroTarjeta
+				+ ", expiracionTarjeta=" + expiracionTarjeta + ", cvvTarjeta=" + cvvTarjeta + ", tacos=" + tacos + "]";
 	}
-	
+
+		
 }

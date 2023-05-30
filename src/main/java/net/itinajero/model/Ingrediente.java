@@ -1,9 +1,19 @@
 package net.itinajero.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "Ingredientes")
 public class Ingrediente {
 
+	@Id
 	private String id;
 	private String nombre;
+	@Enumerated(EnumType.STRING)
 	private Tipo tipo;
 
 	public Ingrediente() {
