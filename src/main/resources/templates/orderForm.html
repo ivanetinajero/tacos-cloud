@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="REST API">
+<meta name="author" content="Iván Eliseo Tinajero Díaz">
+<title>Diseña tu taco</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+	.b-example-divider {
+		width: 100%;
+		height: 1rem;
+		background-color: rgba(0, 0, 0, .1);
+		border: solid rgba(0, 0, 0, .15);
+		border-width: 1px 0;
+		box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgb(0, 0, 0, .15);
+	}
+	
+	.error{
+		color: red;
+		font-size: medium;
+	}
+	
+</style>
+</head>
+
+<body>
+
+	<div class="b-example-divider"></div>
+	
+	<div class="container my-5">
+			<img class="d-block mx-auto mb-4" th:src="@{/images/tacos-cloud.png}" width="150" height="150">
+			<h3>TU ORDEN DE TACOS</h3>
+			
+			<ul>
+				<li th:each="taco : ${ordenTacos.tacos}">
+				<span th:text="${taco.nombre}">taco name</span></li>
+			</ul>
+			
+			<div class="d-inline-flex gap-2 mb-5">		
+				<a type="button" th:href="@{/design}" class="btn btn-outline-primary">Agregar otro taco</a>
+			</div>
+						
+	</div>
+	
+	<div class="b-example-divider"></div>
+
+	<div class="container my-5">
+		
+		<div class="card-header">
+			<h4 class="my-0 fw-normal">Datos de Entrega / Pago</h4>
+		</div>
+		
+		<div class="card-body">
+
+			<form method="POST" th:action="@{/orders}" th:object="${ordenTacos}" class="row g-3">
+
+				<div class="col-md-4">
+					<label for="monto" class="form-label">Nombre Entrega</label>
+					<input type="text" class="form-control" th:field="*{nombreEntrega}">
+					<span class="error" th:if="${#fields.hasErrors('nombreEntrega')}" th:errors="*{nombreEntrega}"></span>
+				</div>
+				
+				<div class="col-md-4">
+					<label for="monto" class="form-label">Calle Entrega</label>
+					<input type="text" class="form-control" th:field="*{calleEntrega}">
+					<span class="error" th:if="${#fields.hasErrors('calleEntrega')}" th:errors="*{calleEntrega}"></span>
+				</div>
+				
+				<div class="col-md-4">
+					<label for="monto" class="form-label">Ciudad Entrega</label>
+					<input type="text" class="form-control" th:field="*{ciudadEntrega}">
+					<span class="error" th:if="${#fields.hasErrors('ciudadEntrega')}" th:errors="*{ciudadEntrega}"></span>
+				</div>			
+				
+				<div class="col-md-4">
+					<label for="monto" class="form-label">Estado Entrega</label>
+					<input type="text" class="form-control" th:field="*{estadoEntrega}">
+					<span class="error" th:if="${#fields.hasErrors('estadoEntrega')}" th:errors="*{estadoEntrega}"></span>
+				</div>
+				
+				<div class="col-md-4">
+					<label for="monto" class="form-label">C.P Entrega</label>
+					<input type="text" class="form-control" th:field="*{cpEntrega}">
+					<span class="error" th:if="${#fields.hasErrors('cpEntrega')}" th:errors="*{cpEntrega}"></span>
+				</div>
+				
+				<div class="col-md-4">
+					<label for="monto" class="form-label">Tarjeta Crédito</label>
+					<input type="text" class="form-control" th:field="*{numeroTarjeta}">
+					<span class="error" th:if="${#fields.hasErrors('numeroTarjeta')}" th:errors="*{numeroTarjeta}"></span>
+				</div>
+				
+				<div class="col-md-4">
+					<label for="monto" class="form-label">Expiración Tarjeta</label>
+					<input type="text" class="form-control" th:field="*{expiracionTarjeta}">
+					<span class="error" th:if="${#fields.hasErrors('expiracionTarjeta')}" th:errors="*{expiracionTarjeta}"></span>
+				</div>
+				
+				<div class="col-md-4">
+					<label for="monto" class="form-label">CVV Tarjeta</label>
+					<input type="text" class="form-control" th:field="*{cvvTarjeta}">
+					<span class="error" th:if="${#fields.hasErrors('cvvTarjeta')}" th:errors="*{cvvTarjeta}"></span>
+				</div>
+				
+				<div class="col-12">
+					<button type="submit" class="btn btn-primary">Enviar Orden</button>
+				</div>
+
+			</form>										
+		
+		</div>
+	</div>
+
+	<div class="container">
+	  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+	    <div class="col-md-4 d-flex align-items-center">
+	      <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+	        <img th:src="@{/images/tacos-cloud.png}" class="bi" width="28" height="28">
+	      </a>
+	      <span class="mb-3 mb-md-0 text-body-secondary">2023 tacoscloud</span>
+	    </div>
+	
+	    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+	      <li class="ms-3"><a class="text-body-secondary" href="#"><img th:src="@{/images/twitter.svg}" class="bi" width="24" height="24"></a></li>
+	      <li class="ms-3"><a class="text-body-secondary" href="#"><img th:src="@{/images/instagram.svg}" class="bi" width="24" height="24"></a></li>
+	      <li class="ms-3"><a class="text-body-secondary" href="#"><img th:src="@{/images/facebook.svg}" class="bi" width="24" height="24"></a></li>
+	    </ul>
+	  </footer>
+	</div>
+
+	<!-- <div class="b-example-divider"></div>  -->
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

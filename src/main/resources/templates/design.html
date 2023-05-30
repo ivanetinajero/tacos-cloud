@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="REST API">
+<meta name="author" content="Iván Eliseo Tinajero Díaz">
+<title>Diseña tu taco</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+
+	.b-example-divider {
+		width: 100%;
+		height: 1rem;
+		background-color: rgba(0, 0, 0, .1);
+		border: solid rgba(0, 0, 0, .15);
+		border-width: 1px 0;
+		box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgb(0, 0, 0, .15);
+	}
+	
+	.error{
+		color: red;
+		font-size: medium;
+	}
+	
+</style>
+</head>
+
+<body>
+
+	<div class="b-example-divider"></div>
+	
+	<div class="container my-5">
+		<div class="p-5 text-center bg-body-tertiary rounded-3">
+			<img class="d-block mx-auto mb-4" th:src="@{/images/tacos-cloud.png}" width="150" height="150">
+			<h3>AGREGAR TACO</h3>			
+		</div>
+	</div>
+	
+	<div class="b-example-divider"></div>
+
+	<div class="container my-5">
+		
+		<form method="POST" th:object="${taco}">
+			
+			<h2 class="pb-2 border-bottom">Elija sus preferencias</h2>
+			
+			<span class="error" th:if="${#fields.hasErrors('ingredientes')}" th:errors="*{ingredientes}"></span>
+	
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+			
+				<div class="col d-flex align-items-start">
+					<div>
+						<h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Envoltura</h3>						
+						<div class="form-check" th:each="ingrediente : ${envoltura}">
+						  <input class="form-check-input" type="checkbox" th:field="*{ingredientes}" th:value="${ingrediente.id}">
+						  <label class="form-check-label" th:text="${ingrediente.nombre}">INGREDIENT</label>
+						</div>						
+					</div>
+				</div>
+				
+				<div class="col d-flex align-items-start">
+					<div>
+						<h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Proteinas</h3>						
+						<div class="form-check" th:each="ingrediente : ${proteina}">
+						  <input class="form-check-input" type="checkbox" th:field="*{ingredientes}" th:value="${ingrediente.id}">
+						  <label class="form-check-label" th:text="${ingrediente.nombre}">INGREDIENT</label>
+						</div>						
+					</div>
+				</div>
+				
+				<div class="col d-flex align-items-start">
+					<div>
+						<h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Queso</h3>						
+						<div class="form-check" th:each="ingrediente : ${queso}">
+						  <input class="form-check-input" type="checkbox" th:field="*{ingredientes}" th:value="${ingrediente.id}">
+						  <label class="form-check-label" th:text="${ingrediente.nombre}">INGREDIENT</label>
+						</div>						
+					</div>
+				</div>
+				
+				<div class="col d-flex align-items-start">
+					<div>
+						<h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Vegetales</h3>						
+						<div class="form-check" th:each="ingrediente : ${vegetal}">
+						  <input class="form-check-input" type="checkbox" th:field="*{ingredientes}" th:value="${ingrediente.id}">
+						  <label class="form-check-label" th:text="${ingrediente.nombre}">INGREDIENT</label>
+						</div>						
+					</div>
+				</div>
+				
+				<div class="col d-flex align-items-start">
+					<div>
+						<h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Salsa</h3>						
+						<div class="form-check" th:each="ingrediente : ${salsa}">
+						  <input class="form-check-input" type="checkbox" th:field="*{ingredientes}" th:value="${ingrediente.id}">
+						  <label class="form-check-label" th:text="${ingrediente.nombre}">INGREDIENT</label>
+						</div>						
+					</div>
+				</div>
+				
+				<div class="col d-flex align-items-start">
+					<div>						
+						<h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Nombre de tu taco</h3>						
+					  	<input class="form-control" type="text" placeholder=""  th:field="*{nombre}">
+					  	<span class="error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+					</div>						
+				</div>
+				
+			</div>
+				
+			<div class="col-auto">
+    			<button type="submit" class="btn btn-primary mb-3">Confirmar Taco</button>
+  			</div>										
+		
+		</form>
+		
+	</div>
+
+	<div class="container">
+	  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+	    <div class="col-md-4 d-flex align-items-center">
+	      <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+	        <img th:src="@{/images/tacos-cloud.png}" class="bi" width="28" height="28">
+	      </a>
+	      <span class="mb-3 mb-md-0 text-body-secondary">2023 tacoscloud</span>
+	    </div>
+	
+	    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+	      <li class="ms-3"><a class="text-body-secondary" href="#"><img th:src="@{/images/twitter.svg}" class="bi" width="24" height="24"></a></li>
+	      <li class="ms-3"><a class="text-body-secondary" href="#"><img th:src="@{/images/instagram.svg}" class="bi" width="24" height="24"></a></li>
+	      <li class="ms-3"><a class="text-body-secondary" href="#"><img th:src="@{/images/facebook.svg}" class="bi" width="24" height="24"></a></li>
+	    </ul>
+	  </footer>
+	</div>
+
+	<!-- <div class="b-example-divider"></div>  -->
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
