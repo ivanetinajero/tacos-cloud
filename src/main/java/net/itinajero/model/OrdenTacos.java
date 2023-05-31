@@ -3,12 +3,16 @@ package net.itinajero.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import org.hibernate.validator.constraints.CreditCardNumber;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Digits;
@@ -40,6 +44,11 @@ public class OrdenTacos {
 	@Digits(integer=3, fraction=0, message="El CVV no es válido")
 	private String cvvTarjeta;
 	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+		name = "OrdenesTacos_Tacos",
+		joinColumns = @JoinColumn(name = "idOrdenTaco"),
+		inverseJoinColumns = @JoinColumn(name = "idTaco")
+	)
 	private List<Taco> tacos = new ArrayList<>();
 
 	public String getNombreEntrega() {
@@ -130,7 +139,7 @@ public class OrdenTacos {
 		this.fechaRegistro = fechaRegistro;
 	}
 	
-	public void agregarTaco(Taco taco) {
+	public void addTaco(Taco taco) {
 		this.tacos.add(taco);
 	}
 	
@@ -141,6 +150,5 @@ public class OrdenTacos {
 				+ estadoEntrega + ", cpEntrega=" + cpEntrega + ", numeroTarjeta=" + numeroTarjeta
 				+ ", expiracionTarjeta=" + expiracionTarjeta + ", cvvTarjeta=" + cvvTarjeta + ", tacos=" + tacos + "]";
 	}
-
 		
 }

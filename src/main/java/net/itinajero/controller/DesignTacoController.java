@@ -55,13 +55,13 @@ public class DesignTacoController {
 	}
 	
 	@PostMapping
-	public String processTaco(@Valid Taco taco, Errors errors, @ModelAttribute OrdenTacos tacoOrder) {
+	public String processTaco(@Valid Taco taco, Errors errors, @ModelAttribute OrdenTacos ordenTacos) {
 		
 		if (errors.hasErrors()) {
 			return "design";
 		}
 		
-		tacoOrder.agregarTaco(taco);
+		ordenTacos.addTaco(taco);
 		System.out.println("Processing taco:" + taco);
 		return "redirect:/orders/current";
 	}

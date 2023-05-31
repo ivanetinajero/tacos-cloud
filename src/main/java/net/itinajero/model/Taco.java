@@ -2,10 +2,13 @@ package net.itinajero.model;
 
 import java.util.Date;
 import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -23,7 +26,11 @@ public class Taco {
 	@Size(min = 5, message = "El nombre debe tener 5 caracteres por lo menos")
 	private String nombre;
 	@Size(min = 1, message = "Debes seleccionar por lo menos 1 ingrediente")
-	@ManyToMany
+	@ManyToMany()
+	@JoinTable(name = "TacosIngredientes", // tabla intermedia
+		joinColumns = @JoinColumn(name = "idTaco"), // foreignKey en la tabla de TacosIngredientes
+		inverseJoinColumns = @JoinColumn(name = "idIngrediente") // foreignKey en la tabla de TacosIngredientes
+	)
 	private List<Ingrediente> ingredientes;
 
 	public String getNombre() {
