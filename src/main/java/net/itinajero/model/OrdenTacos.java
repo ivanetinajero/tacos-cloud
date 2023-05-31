@@ -3,9 +3,7 @@ package net.itinajero.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.hibernate.validator.constraints.CreditCardNumber;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -139,7 +137,7 @@ public class OrdenTacos {
 		this.fechaRegistro = fechaRegistro;
 	}
 	
-	public void addTaco(Taco taco) {
+	public void agregarTaco(Taco taco) {
 		this.tacos.add(taco);
 	}
 	

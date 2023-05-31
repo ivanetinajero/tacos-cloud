@@ -2,7 +2,6 @@ package net.itinajero.model;
 
 import java.util.Date;
 import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -64,11 +63,11 @@ public class Taco {
 	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
-	
-	public void agregarIngredient(Ingrediente ingrediente) {
+	/*
+	public void agregarIngrediente(Ingrediente ingrediente) {
 		this.ingredientes.add(ingrediente);
 	}
-
+	*/
 	@Override
 	public String toString() {
 		return "Taco [id=" + id + ", fechaCreacion=" + fechaCreacion + ", nombre=" + nombre + ", ingredientes="

@@ -22,7 +22,7 @@ import net.itinajero.repository.IIngredientesRepository;
 @SessionAttributes("ordenTacos")
 public class DesignTacoController {
 	
-	private final IIngredientesRepository ingredientesRepo;
+	private IIngredientesRepository ingredientesRepo;
 	
 	public DesignTacoController(IIngredientesRepository ingredientesRepo) {
 		this.ingredientesRepo = ingredientesRepo;
@@ -61,7 +61,7 @@ public class DesignTacoController {
 			return "design";
 		}
 		
-		ordenTacos.addTaco(taco);
+		ordenTacos.agregarTaco(taco);
 		System.out.println("Processing taco:" + taco);
 		return "redirect:/orders/current";
 	}
