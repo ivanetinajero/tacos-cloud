@@ -26,14 +26,14 @@ public class OrdenesTacosService implements IOrdenesTacosService {
 	 * In this case, the returnObject is the OrdenTacos returned from the method. If its usuario property has a username that is equal to the authentication’s name property, 
 	 * then it will be allowed. To know that, though, the method will need to be executed so that it can return the OrdenTacos object for consideration.
 	 */
-	@Override
+	@Override	
+	@PostAuthorize("hasRole('ADMIN') || returnObject.usuario.username == authentication.name")
 	//@PostAuthorize("returnObject.usuario.username == authentication.name")
-	//@PostAuthorize("hasRole('ADMIN') || returnObject.usuario.username == authentication.name")
-	@PostAuthorize("hasRole('ADMIN') || returnObject.cvvTarjeta == '365'")
+	//@PostAuthorize("hasRole('ADMIN') || returnObject.cvvTarjeta == '365'")
 	public OrdenTacos buscarPorId(long idOrdenTacos) {
 		Optional<OrdenTacos> optional = ordenesRepo.findById(idOrdenTacos);
 		if (optional.isPresent()) {
-			System.out.println("@PostAuthorize:" + optional.get());
+			System.out.println("@PostAuthorize buscarPorId:" + optional.get());
 			return optional.get();
 		}	
 		return null;

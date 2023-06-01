@@ -143,5 +143,10 @@ public class Usuario implements UserDetails {
 		this.password = password;
 	}
 
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", username=" + username + ", nombre=" + nombre + ", calle=" + calle + ", ciudad="
+				+ ciudad + ", estado=" + estado + ", codigoPostal=" + codigoPostal + ", telefono=" + telefono + "]";
+	}
 	
 }

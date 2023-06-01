@@ -153,13 +153,14 @@ public class OrdenTacos {
 	public void agregarTaco(Taco taco) {
 		this.tacos.add(taco);
 	}
-	
+
 	@Override
 	public String toString() {
 		return "OrdenTacos [id=" + id + ", fechaRegistro=" + fechaRegistro + ", nombreEntrega=" + nombreEntrega
 				+ ", calleEntrega=" + calleEntrega + ", ciudadEntrega=" + ciudadEntrega + ", estadoEntrega="
 				+ estadoEntrega + ", cpEntrega=" + cpEntrega + ", numeroTarjeta=" + numeroTarjeta
-				+ ", expiracionTarjeta=" + expiracionTarjeta + ", cvvTarjeta=" + cvvTarjeta + ", tacos=" + tacos + "]";
+				+ ", expiracionTarjeta=" + expiracionTarjeta + ", cvvTarjeta=" + cvvTarjeta + ", tacos=" + tacos
+				+ ", usuario=" + usuario + "]";
 	}
-		
+	
 }
