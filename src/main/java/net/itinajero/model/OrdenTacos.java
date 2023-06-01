@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Digits;
@@ -44,10 +45,14 @@ public class OrdenTacos {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(
 		name = "OrdenesTacos_Tacos",
-		joinColumns = @JoinColumn(name = "idOrdenTaco"),
+		joinColumns = @JoinColumn(name = "idOrdenTacos"),
 		inverseJoinColumns = @JoinColumn(name = "idTaco")
 	)
 	private List<Taco> tacos = new ArrayList<>();
+	
+	@ManyToOne
+	@JoinColumn(name = "idUsuario") // Nombre de la columna en la tabla OrdenesTacos que almacena la relación con Usuario
+	private Usuario usuario;
 
 	public String getNombreEntrega() {
 		return nombreEntrega;
@@ -137,6 +142,14 @@ public class OrdenTacos {
 		this.fechaRegistro = fechaRegistro;
 	}
 	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public void agregarTaco(Taco taco) {
 		this.tacos.add(taco);
 	}
